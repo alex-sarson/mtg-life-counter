@@ -1,31 +1,61 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, type ViewProps } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import React, { useRef, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import LifeAlterButton from "./ui/LifeAlterButton";
 
 export default function Player() {
-  const [life, setLife] = useState(40);
+  const [life, setLife] = useState<number>(40);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
   const gainLife = () => {
     setLife(life + 1);
   };
   const loseLife = () => {
     setLife(life - 1);
   };
+
+  const handleLongLose10 = () => {
+    intervalRef.current = setInterval(() => {
+      setLife((prevLife) => {
+        const newValue = prevLife - 10;
+        return newValue;
+      });
+    }, 300);
+  };
+
+  const handleLongGain10 = () => {
+    intervalRef.current = setInterval(() => {
+      setLife((prevLife) => {
+        const newValue = prevLife + 10;
+        return newValue;
+      });
+    }, 300);
+  };
+
+  const handleRelease = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
   return (
     <View style={[styles.container]}>
-      <FontAwesome.Button
+      <LifeAlterButton
         name="minus"
         size={30}
-        color={"white"}
-        backgroundColor={"transparent"}
+        color="white"
         onPress={loseLife}
+        onLongPress={handleLongLose10}
+        onPressOut={handleRelease}
       />
       <Text style={[styles.life]}>{life}</Text>
-      <FontAwesome.Button
+      <LifeAlterButton
         name="plus"
         size={30}
-        color={"white"}
-        backgroundColor={"transparent"}
+        color="white"
         onPress={gainLife}
+        onLongPress={handleLongGain10}
+        onPressOut={handleRelease}
       />
     </View>
   );
