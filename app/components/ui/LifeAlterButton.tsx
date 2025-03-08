@@ -25,6 +25,7 @@ const LifeAlterButton = ({
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "transparent",
+    padding: 10,
   },
   pressed: {
     // nothing

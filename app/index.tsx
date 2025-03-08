@@ -12,8 +12,8 @@ export default function HomeScreen() {
       </Link>
       <View style={[styles.playerWrapper, styles.invert]}>
         {/* player's 1/1&2 */}
-        <Player />
-        <Player />
+        <Player colour="green" />
+        <Player colour="blue" />
       </View>
       <View style={[styles.playerWrapper]}>
         {/* player's 2/3&4 */}

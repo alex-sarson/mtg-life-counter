@@ -2,18 +2,18 @@ import React, { useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import LifeAlterButton from "./ui/LifeAlterButton";
 
-export default function Player() {
+export default function Player({ colour = "grey" }) {
   const [life, setLife] = useState<number>(40);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const gainLife = () => {
+  const gainLife = (): void => {
     setLife(life + 1);
   };
-  const loseLife = () => {
+  const loseLife = (): void => {
     setLife(life - 1);
   };
 
-  const handleLongLose10 = () => {
+  const handleLongLose10 = (): void => {
     intervalRef.current = setInterval(() => {
       setLife((prevLife) => {
         const newValue = prevLife - 10;
@@ -22,7 +22,7 @@ export default function Player() {
     }, 300);
   };
 
-  const handleLongGain10 = () => {
+  const handleLongGain10 = (): void => {
     intervalRef.current = setInterval(() => {
       setLife((prevLife) => {
         const newValue = prevLife + 10;
@@ -31,7 +31,7 @@ export default function Player() {
     }, 300);
   };
 
-  const handleRelease = () => {
+  const handleRelease = (): void => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -39,7 +39,22 @@ export default function Player() {
   };
 
   return (
-    <View style={[styles.container]}>
+    <View
+      style={[
+        styles.container,
+        colour === "green"
+          ? styles.green
+          : colour === "blue"
+          ? styles.blue
+          : colour === "red"
+          ? styles.red
+          : colour === "black"
+          ? styles.black
+          : colour === "white"
+          ? styles.white
+          : styles.grey,
+      ]}
+    >
       <LifeAlterButton
         name="minus"
         size={30}
@@ -65,10 +80,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "row",
-    borderWidth: 2,
-    borderStyle: "solid",
-    borderColor: "green",
-    backgroundColor: "pink",
     height: "100%",
     width: "50%",
     maxWidth: "70%",
@@ -86,5 +97,23 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     marginLeft: 40,
     marginRight: 40,
+  },
+  green: {
+    backgroundColor: "green",
+  },
+  blue: {
+    backgroundColor: "blue",
+  },
+  red: {
+    backgroundColor: "red",
+  },
+  white: {
+    backgroundColor: "white",
+  },
+  black: {
+    backgroundColor: "black",
+  },
+  grey: {
+    backgroundColor: "grey",
   },
 });
