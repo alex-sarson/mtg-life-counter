@@ -1,18 +1,13 @@
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function HomeScreen() {
+export default function MenuScreen() {
   return (
     <View style={[styles.container]}>
-      <Link href="/menu" asChild style={[styles.settings]}>
+      <Text onPress={() => router.back()}>Go back</Text>
+      <Link href="/setup" asChild>
         <Pressable>
-          <Text>Menu</Text>
-        </Pressable>
-      </Link>
-      <Text>This is the home screen</Text>
-      <Link href="/game" asChild>
-        <Pressable>
-          <Text>Start Game</Text>
+          <Text>New Game</Text>
         </Pressable>
       </Link>
     </View>

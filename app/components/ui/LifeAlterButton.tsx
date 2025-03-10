@@ -1,8 +1,17 @@
 import React from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, PressableProps, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-const LifeAlterButton = ({
+interface LifeAlterButtonProps {
+  onPressOut?: PressableProps["onPressOut"];
+  onPress?: PressableProps["onPress"];
+  onLongPress?: PressableProps["onLongPress"];
+  name: any;
+  size: number;
+  color: string;
+}
+
+const LifeAlterButton: React.FC<LifeAlterButtonProps> = ({
   onPressOut,
   onPress,
   onLongPress,
