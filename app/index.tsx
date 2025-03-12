@@ -10,7 +10,7 @@ export default function HomeScreen() {
         </Pressable>
       </Link>
       <Text>This is the home screen</Text>
-      <Link href="/game" asChild>
+      <Link href="/setup" asChild>
         <Pressable>
           <Text>Start Game</Text>
         </Pressable>
