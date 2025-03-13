@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import LifeAlterButton from "./ui/LifeAlterButton";
+import NumberControlButton from "./ui/NumberControlButton";
 
 export default function Player({ colour = "grey" }) {
   const [life, setLife] = useState<number>(40);
@@ -55,22 +55,24 @@ export default function Player({ colour = "grey" }) {
           : styles.grey,
       ]}
     >
-      <LifeAlterButton
+      <NumberControlButton
         name="minus"
         size={30}
         color="white"
         onPress={loseLife}
         onLongPress={handleLongLose10}
         onPressOut={handleRelease}
+        disabled={false}
       />
       <Text style={[styles.life]}>{life}</Text>
-      <LifeAlterButton
+      <NumberControlButton
         name="plus"
         size={30}
         color="white"
         onPress={gainLife}
         onLongPress={handleLongGain10}
         onPressOut={handleRelease}
+        disabled={false}
       />
     </View>
   );

@@ -2,14 +2,14 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import BackButton from "./components/ui/BackButton";
 import PageLayout from "./components/PageLayout";
-import NumberInput from "./components/forms/NumberInput";
+import SetupForm from "./components/forms/SetupForm";
 
 export default function SetupPage() {
   return (
     <PageLayout>
       <View style={styles.container}>
         <Text style={styles.title}>New Game</Text>
-        <NumberInput label="Select number of players:" />
+        <SetupForm />
       </View>
     </PageLayout>
   );

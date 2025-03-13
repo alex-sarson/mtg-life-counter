@@ -2,22 +2,24 @@ import React from "react";
 import { Pressable, PressableProps, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-interface LifeAlterButtonProps {
+interface NumberControlButtonProps {
   onPressOut?: PressableProps["onPressOut"];
   onPress?: PressableProps["onPress"];
   onLongPress?: PressableProps["onLongPress"];
   name: any;
   size: number;
   color: string;
+  disabled: boolean;
 }
 
-const LifeAlterButton: React.FC<LifeAlterButtonProps> = ({
+const NumberControlButton: React.FC<NumberControlButtonProps> = ({
   onPressOut,
   onPress,
   onLongPress,
   name,
   size,
   color,
+  disabled,
 }) => {
   return (
     <Pressable
@@ -25,6 +27,7 @@ const LifeAlterButton: React.FC<LifeAlterButtonProps> = ({
       onPress={onPress}
       onPressOut={onPressOut}
       onLongPress={onLongPress}
+      disabled={disabled}
     >
       <FontAwesome name={name} size={size} color={color} />
     </Pressable>
@@ -41,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LifeAlterButton;
+export default NumberControlButton;
