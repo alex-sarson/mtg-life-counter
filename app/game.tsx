@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Player from "./components/Player";
 import MenuButton from "./components/ui/MenuButton";
@@ -6,17 +6,53 @@ import { useKeepAwake } from "expo-keep-awake";
 
 export default function GameScreen() {
   useKeepAwake();
+  const params = useLocalSearchParams();
+  const lifeParam = params.life;
+  const playersParam = params.players;
+
+  let lifeString: string | undefined;
+  let playersString: string | undefined;
+
+  if (Array.isArray(lifeParam)) {
+    lifeString = lifeParam[0];
+  } else {
+    lifeString = lifeParam;
+  }
+  if (Array.isArray(playersParam)) {
+    playersString = playersParam[0];
+  } else {
+    playersString = playersParam;
+  }
+
+  const data = {
+    life: lifeParam ? parseInt(lifeString, 10) : 40,
+    players: playersParam ? parseInt(playersString, 10) : 2,
+  };
+
   return (
     <View style={[styles.container]}>
       <MenuButton color="white" />
       <View style={[styles.playerWrapper, styles.invert]}>
-        {/* player's 1/1&2 */}
-        <Player colour="green" />
-        <Player colour="blue" />
+        {/* player's 1 / 1&2 */}
+        {data.players === 2 ? (
+          <Player colour="green" startingLife={data.life} />
+        ) : (
+          <>
+            <Player colour="green" startingLife={data.life} />
+            <Player colour="blue" startingLife={data.life} />
+          </>
+        )}
       </View>
       <View style={[styles.playerWrapper]}>
-        {/* player's 2/3&4 */}
-        <Player />
+        {/* player's 2 / 3&4 */}
+        {data.players !== 4 ? (
+          <Player colour="red" startingLife={data.life} />
+        ) : (
+          <>
+            <Player colour="black" startingLife={data.life} />
+            <Player colour="blue" startingLife={data.life} />
+          </>
+        )}
       </View>
     </View>
   );

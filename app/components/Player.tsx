@@ -2,8 +2,13 @@ import React, { useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import NumberControlButton from "./ui/NumberControlButton";
 
-export default function Player({ colour = "grey" }) {
-  const [life, setLife] = useState<number>(40);
+interface Props {
+  colour: string;
+  startingLife: number;
+}
+
+export default function Player({ colour = "grey", startingLife }: Props) {
+  const [life, setLife] = useState<number>(startingLife);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const gainLife = (): void => {

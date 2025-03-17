@@ -1,4 +1,3 @@
-import { FontAwesome } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
   Pressable,
@@ -7,11 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import NumberControlButton from "../ui/NumberControlButton";
-
-interface Props {
-  label: string;
-}
+import { Link } from "expo-router";
 
 interface RadioNumbersProps {
   number: number;
@@ -19,33 +14,66 @@ interface RadioNumbersProps {
   onPress?: PressableProps["onPress"];
 }
 
-// TODO: Move into a complete setup form, so that on submit I can pass the number value to the game screen.
-
 const SetupForm = () => {
   const [numberOfPlayers, setNumberOfPlayers] = useState(2);
-  const [radioPressed, setRadioPressed] = useState(2);
+  const [nopPressed, setNopPressed] = useState(2);
+  const [lifeTotal, setLifeTotal] = useState(20);
+  const [lifePressed, setLifePressed] = useState(20);
 
-  const handleRadioPress = (number: number) => {
+  const handleNumberOfPlayers = (number: number) => {
     setNumberOfPlayers(number);
-    setRadioPressed(number);
+    setNopPressed(number);
+  };
+
+  const handleLifeTotalPressed = (number: number) => {
+    setLifeTotal(number);
+    setLifePressed(number);
   };
 
   const data = {
     players: numberOfPlayers,
+    startingLife: lifeTotal,
   };
 
   return (
     <View>
-      <Text>Select number of players:</Text>
-      <View style={styles.radioNumbersContainer}>
-        {[2, 3, 4].map((number, index) => (
-          <RadioNumber
-            number={number}
-            key={index}
-            onPress={() => handleRadioPress(number)}
-            disabled={number === radioPressed}
-          />
-        ))}
+      <View style={styles.row}>
+        <Text style={styles.label}>Select number of players:</Text>
+        <View style={styles.radioNumbersContainer}>
+          {[2, 3, 4].map((number, index) => (
+            <RadioNumber
+              number={number}
+              key={index}
+              onPress={() => handleNumberOfPlayers(number)}
+              disabled={number === nopPressed}
+            />
+          ))}
+        </View>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Select starting life:</Text>
+        <View style={styles.radioNumbersContainer}>
+          {[20, 30, 40].map((number, index) => (
+            <RadioNumber
+              number={number}
+              key={index}
+              onPress={() => handleLifeTotalPressed(number)}
+              disabled={number === lifePressed}
+            />
+          ))}
+        </View>
+      </View>
+      <View style={styles.row}>
+        <Link
+          href={`/game?players=${encodeURIComponent(
+            data.players
+          )}&life=${encodeURIComponent(data.startingLife)}`}
+          asChild
+        >
+          <Pressable>
+            <Text style={styles.start}>Start Game</Text>
+          </Pressable>
+        </Link>
       </View>
     </View>
   );
@@ -65,10 +93,28 @@ const RadioNumber = ({ number, disabled, onPress }: RadioNumbersProps) => (
 );
 
 const styles = StyleSheet.create({
+  row: {
+    marginTop: 15,
+    marginBottom: 15,
+  },
   input: {
     display: "flex",
     flexDirection: "row",
     gap: 3,
+  },
+  label: {
+    marginBottom: 10,
+  },
+  start: {
+    backgroundColor: "grey",
+    textAlign: "center",
+    borderRadius: 4,
+    padding: 10,
+    color: "white",
+    fontWeight: 700,
+    width: "80%",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   radioNumbersContainer: {
     display: "flex",

@@ -24,8 +24,11 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     marginLeft: "auto",
     borderStyle: "solid",
-    borderWidth: 2,
-    borderColor: "blue",
+    borderWidth: 1,
+    borderColor: "grey",
+    borderRadius: 10,
+    padding: 10,
+    boxShadow: "2px 2px 10px #cccccc",
   },
   title: {
     fontSize: 40,
