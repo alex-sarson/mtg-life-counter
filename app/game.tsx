@@ -35,22 +35,22 @@ export default function GameScreen() {
       <View style={[styles.playerWrapper, styles.invert]}>
         {/* player's 1 / 1&2 */}
         {data.players === 2 ? (
-          <Player colour="green" startingLife={data.life} />
+          <Player startingLife={data.life} />
         ) : (
           <>
-            <Player colour="green" startingLife={data.life} />
-            <Player colour="blue" startingLife={data.life} />
+            <Player startingLife={data.life} />
+            <Player startingLife={data.life} />
           </>
         )}
       </View>
       <View style={[styles.playerWrapper]}>
         {/* player's 2 / 3&4 */}
         {data.players !== 4 ? (
-          <Player colour="red" startingLife={data.life} />
+          <Player startingLife={data.life} />
         ) : (
           <>
-            <Player colour="black" startingLife={data.life} />
-            <Player colour="blue" startingLife={data.life} />
+            <Player startingLife={data.life} />
+            <Player startingLife={data.life} />
           </>
         )}
       </View>

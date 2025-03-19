@@ -1,14 +1,28 @@
-import React, { useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { PropsWithChildren, useRef, useState } from "react";
+import {
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import NumberControlButton from "./ui/NumberControlButton";
+import { FontAwesome } from "@expo/vector-icons";
 
 interface Props {
-  colour: string;
   startingLife: number;
 }
 
-export default function Player({ colour = "grey", startingLife }: Props) {
+interface SettingsButtonProps {
+  style: any;
+  onPress?: PressableProps["onPress"];
+  toggle: boolean;
+}
+
+export default function Player({ startingLife }: Props) {
   const [life, setLife] = useState<number>(startingLife);
+  const [showPlayerSettings, setShowPlayerSettings] = useState<boolean>(false);
+  const [colour, setColour] = useState<string>("#848484");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const gainLife = (): void => {
@@ -43,45 +57,80 @@ export default function Player({ colour = "grey", startingLife }: Props) {
     }
   };
 
+  const toggleSettings = (): void => {
+    setShowPlayerSettings((prev) => !prev);
+  };
+
+  let playerData = {
+    colour: colour,
+    currentLife: life,
+  };
+
+  let colours = {
+    black: "#848484",
+    white: "#f3e39d",
+    green: "#94c776",
+    blue: "#7fc1e9",
+    red: "#f18776",
+  };
+
   return (
-    <View
-      style={[
-        styles.container,
-        colour === "green"
-          ? styles.green
-          : colour === "blue"
-          ? styles.blue
-          : colour === "red"
-          ? styles.red
-          : colour === "black"
-          ? styles.black
-          : colour === "white"
-          ? styles.white
-          : styles.grey,
-      ]}
-    >
-      <NumberControlButton
-        name="minus"
-        size={30}
-        color="white"
-        onPress={loseLife}
-        onLongPress={handleLongLose10}
-        onPressOut={handleRelease}
-        disabled={false}
-      />
-      <Text style={[styles.life]}>{life}</Text>
-      <NumberControlButton
-        name="plus"
-        size={30}
-        color="white"
-        onPress={gainLife}
-        onLongPress={handleLongGain10}
-        onPressOut={handleRelease}
-        disabled={false}
-      />
-    </View>
+    <>
+      <View style={[styles.container, { backgroundColor: colour }]}>
+        <View
+          style={[
+            styles.settings,
+            !showPlayerSettings ? styles.settingsHide : null,
+          ]}
+        >
+          {Object.entries(colours).map(([key, value], index) => (
+            <Pressable
+              key={index}
+              style={[styles.colourButton, { backgroundColor: value }]}
+              onPress={() => setColour(value)}
+            />
+          ))}
+        </View>
+        <SettingsButton
+          style={styles.settingsButton}
+          onPress={toggleSettings}
+          toggle={!showPlayerSettings}
+        />
+        <NumberControlButton
+          name="minus"
+          size={30}
+          color="white"
+          onPress={loseLife}
+          onLongPress={handleLongLose10}
+          onPressOut={handleRelease}
+          disabled={false}
+        />
+        <Text style={[styles.life]}>{life}</Text>
+        <NumberControlButton
+          name="plus"
+          size={30}
+          color="white"
+          onPress={gainLife}
+          onLongPress={handleLongGain10}
+          onPressOut={handleRelease}
+          disabled={false}
+        />
+      </View>
+    </>
   );
 }
+
+const SettingsButton = ({ style, onPress, toggle }: SettingsButtonProps) => {
+  return (
+    <Pressable style={style} onPress={onPress}>
+      {toggle ? (
+        <FontAwesome name="cog" color="white" size={30} />
+      ) : (
+        <FontAwesome name="close" color="white" size={32} />
+      )}
+    </Pressable>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -97,6 +146,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  colourButton: {
+    height: 40,
+    width: 40,
+    borderRadius: "50%",
+    borderWidth: 3,
+    borderStyle: "solid",
+    borderColor: "white",
+  },
   life: {
     fontSize: 120,
     color: "white",
@@ -105,22 +162,24 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 40,
   },
-  green: {
-    backgroundColor: "green",
-  },
-  blue: {
-    backgroundColor: "blue",
-  },
-  red: {
-    backgroundColor: "red",
-  },
-  white: {
-    backgroundColor: "white",
-  },
-  black: {
+  settings: {
     backgroundColor: "black",
+    position: "absolute",
+    zIndex: 2,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    opacity: 0.85,
   },
-  grey: {
-    backgroundColor: "grey",
+  settingsHide: {
+    display: "none",
+  },
+  settingsButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    opacity: 0.5,
+    zIndex: 3,
   },
 });
