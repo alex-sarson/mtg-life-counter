@@ -71,7 +71,9 @@ export default function Player({ startingLife }: Props) {
     white: "#f3e39d",
     green: "#94c776",
     blue: "#7fc1e9",
-    red: "#f18776",
+    red: "#e05353",
+    pink: "#eb67d3",
+    lilac: "#a061d4",
   };
 
   return (
@@ -83,13 +85,21 @@ export default function Player({ startingLife }: Props) {
             !showPlayerSettings ? styles.settingsHide : null,
           ]}
         >
-          {Object.entries(colours).map(([key, value], index) => (
-            <Pressable
-              key={index}
-              style={[styles.colourButton, { backgroundColor: value }]}
-              onPress={() => setColour(value)}
-            />
-          ))}
+          <View style={styles.coloursWrapper}>
+            {Object.entries(colours).map(([key, value], index) => (
+              <Pressable
+                key={index}
+                style={[
+                  styles.colourButton,
+                  {
+                    backgroundColor: value,
+                    borderColor: colour === value ? "white" : value,
+                  },
+                ]}
+                onPress={() => setColour(value)}
+              />
+            ))}
+          </View>
         </View>
         <SettingsButton
           style={styles.settingsButton}
@@ -145,6 +155,15 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#16161f",
+    borderStyle: "solid",
+  },
+  coloursWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    margin: "auto",
+    gap: 15,
   },
   colourButton: {
     height: 40,
@@ -152,7 +171,6 @@ const styles = StyleSheet.create({
     borderRadius: "50%",
     borderWidth: 3,
     borderStyle: "solid",
-    borderColor: "white",
   },
   life: {
     fontSize: 120,
@@ -163,9 +181,9 @@ const styles = StyleSheet.create({
     marginRight: 40,
   },
   settings: {
-    backgroundColor: "black",
+    backgroundColor: "#16161f",
     position: "absolute",
-    zIndex: 2,
+    zIndex: 3,
     top: 0,
     right: 0,
     bottom: 0,
@@ -180,6 +198,6 @@ const styles = StyleSheet.create({
     top: 10,
     right: 10,
     opacity: 0.5,
-    zIndex: 3,
+    zIndex: 4,
   },
 });
