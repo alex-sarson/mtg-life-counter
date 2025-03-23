@@ -181,14 +181,13 @@ const styles = StyleSheet.create({
     marginRight: 40,
   },
   settings: {
-    backgroundColor: "#16161f",
+    backgroundColor: "#2b2b36",
     position: "absolute",
     zIndex: 3,
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
-    opacity: 0.85,
   },
   settingsHide: {
     display: "none",

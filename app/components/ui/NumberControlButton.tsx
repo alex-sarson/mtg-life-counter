@@ -29,15 +29,23 @@ const NumberControlButton: React.FC<NumberControlButtonProps> = ({
       onLongPress={onLongPress}
       disabled={disabled}
     >
-      <FontAwesome name={name} size={size} color={color} />
+      <FontAwesome
+        name={name}
+        size={size}
+        color={color}
+        style={{ lineHeight: 0 }}
+      />
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "transparent",
-    padding: 10,
+    backgroundColor: "#FFFFFF19",
+    padding: 15,
+    paddingTop: 27,
+    paddingBottom: 25,
+    borderRadius: 10,
   },
   pressed: {
     // nothing
