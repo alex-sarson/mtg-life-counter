@@ -115,7 +115,9 @@ export default function Player({ startingLife }: Props) {
           onPressOut={handleRelease}
           disabled={false}
         />
-        <Text style={[styles.life]}>{life}</Text>
+        <Text style={[styles.life]} selectable={false}>
+          {life}
+        </Text>
         <NumberControlButton
           name="plus"
           size={30}

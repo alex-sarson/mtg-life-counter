@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import Player from "./components/Player";
 import MenuButton from "./components/ui/MenuButton";
 import { useKeepAwake } from "expo-keep-awake";
+import PageLayout from "./components/PageLayout";
 
 export default function GameScreen() {
   useKeepAwake();
@@ -30,7 +31,7 @@ export default function GameScreen() {
   };
 
   return (
-    <View style={[styles.container]}>
+    <PageLayout backButton={false}>
       <MenuButton color="white" />
       <View style={[styles.playerWrapper, styles.invert]}>
         {/* player's 1 / 1&2 */}
@@ -54,20 +55,11 @@ export default function GameScreen() {
           </>
         )}
       </View>
-    </View>
+    </PageLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#16161f",
-  },
   playerWrapper: {
     display: "flex",
     height: "50%",

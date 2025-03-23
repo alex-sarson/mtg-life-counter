@@ -6,7 +6,7 @@ import { Pressable, StyleSheet } from "react-native";
 const BackButton: React.FC = () => {
   return (
     <Pressable onPress={() => router.back()} style={styles.button}>
-      <FontAwesome name="arrow-left" size={30} />
+      <FontAwesome name="arrow-left" size={30} color="white" />
     </Pressable>
   );
 };

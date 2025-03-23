@@ -104,14 +104,14 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 10,
+    color: "white",
   },
   start: {
-    backgroundColor: "grey",
+    backgroundColor: "#4c599d",
     textAlign: "center",
     borderRadius: 4,
     padding: 10,
     color: "white",
-    fontWeight: 700,
     width: "80%",
     marginLeft: "auto",
     marginRight: "auto",
@@ -134,10 +134,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   radioNumberActive: {
-    backgroundColor: "grey",
+    backgroundColor: "#37374e",
   },
   radioNumberDisabled: {
-    backgroundColor: "green",
+    backgroundColor: "#4c599d",
+    boxShadow: "0px 0px 6px #4c599d",
   },
 });
 

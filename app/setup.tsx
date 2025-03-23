@@ -6,7 +6,7 @@ import SetupForm from "./components/forms/SetupForm";
 
 export default function SetupPage() {
   return (
-    <PageLayout>
+    <PageLayout backButton>
       <View style={styles.container}>
         <Text style={styles.title}>New Game</Text>
         <SetupForm />
@@ -19,19 +19,21 @@ const styles = StyleSheet.create({
   container: {
     width: 400,
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 0,
     marginBottom: 0,
     marginRight: "auto",
     marginLeft: "auto",
     borderStyle: "solid",
     borderWidth: 1,
-    borderColor: "grey",
+    borderColor: "#282839",
     borderRadius: 10,
     padding: 10,
-    boxShadow: "2px 2px 10px #cccccc",
+    boxShadow: "2px 2px 10px #282839",
+    backgroundColor: "#242433",
   },
   title: {
     fontSize: 40,
     fontWeight: "700",
+    color: "white",
   },
 });
